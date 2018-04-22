@@ -10,6 +10,17 @@
         return $('input[name="gridRadios"]:checked').val();
     };
 
+    function alertSucessMessage(message){
+        $('#alert-danger').hide();
+        $('#sucess_message').text(message);
+        $('#alert_sucess').show();
+    }
+
+    function alertFailure(){
+        $('#alert_sucess').hide();
+        $('#alert-danger').show();
+    }
+
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     });
@@ -25,10 +36,11 @@
                 },
                 success: function (data)
                 {
-                    // data = JSON object that contact.php returns
-                    // we recieve the type of the message: success x danger and apply it to the 
-                    var messageAlert = 'alert-' + data.type;
-                    var messageText = data.message;
+                    var messageAlert = 'Listner Started successfully';
+                    alertSucessMessage(messageAlert)
+                },
+                failure: function(data){
+                    alertFailure();
                 }
             });
     });
@@ -44,10 +56,11 @@
                 },
                 success: function (data)
                 {
-                    // data = JSON object that contact.php returns
-                    // we recieve the type of the message: success x danger and apply it to the 
-                    var messageAlert = 'alert-' + data.type;
-                    var messageText = data.message;
+                    var messageAlert = 'Queue cleared successfully';
+                    alertSucessMessage(messageAlert)
+                },
+                failure: function(data){
+                    alertFailure();
                 }
             });
     }); 
@@ -66,22 +79,11 @@
                 data: $(this).serialize(),
                 success: function (data)
                 {
-                    // data = JSON object that contact.php returns
-
-                    // we recieve the type of the message: success x danger and apply it to the 
-                    var messageAlert = 'alert-' + data.type;
-                    var messageText = data.message;
-
-                    // let's compose Bootstrap alert box HTML
-                    var alertBox = '<div class="alert ' + messageAlert + ' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + messageText + '</div>';
-                    
-                    // If we have messageAlert and messageText
-                    if (messageAlert && messageText) {
-                        // inject the alert to .messages div in our form
-                        $('#contact-form').find('.messages').html(alertBox);
-                        // empty the form
-                        $('#contact-form')[0].reset();
-                    }
+                    var messageAlert = 'Message sent to queue successfully';
+                    alertSucessMessage(messageAlert)
+                },
+                failure: function(data){
+                    alertFailure();
                 }
             });
             return false;
