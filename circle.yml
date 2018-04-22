@@ -10,5 +10,9 @@ test:
     - cf target -o proxy.gap.com -s development
     - cf set-env rabbitmq-email RABBIT_MQ_URL $RABBIT_MQ_URL
     - cf set-env rabbitmq-email SEND_GRID_API_KEY $SEND_GRID_API_KEY
+    - cf set-env rabbitmq-email NEW_RELIC_LICENSE_KEY $NEW_RELIC_LICENSE_KEY
+    - cf set-env rabbitmq-email NEW_RELIC_APP_NAME rabbitmq-email
     - cf push rabbitmq-email
+    - cf create-service newrelic standard rabbitmq-email-app
+    - cf bind-service rabbitmq-email rabbitmq-email-app
     - cf restage rabbitmq-email
