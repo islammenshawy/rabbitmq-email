@@ -9,7 +9,7 @@ const sgMail = require('@sendgrid/mail');
 var amqp_url= process.env.RABBIT_MQ_URL
 var default_queue_name = "ORDER_CONFIRM"
 sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
-app.use('/static', express.static('js'))
+app.use('/static', express.static('build'))
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
