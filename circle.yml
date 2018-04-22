@@ -7,7 +7,7 @@ test:
   post:
     - cf api  https://api.run.pivotal.io
     - cf auth $CF_USER_EMAIL $CF_PASSWORD
-    - cf set-env rabbitmq-email RABBIT_MQ_URL $RABBIT_MQ_URL
     - cf target -o proxy.gap.com -s development
+    - cf set-env rabbitmq-email RABBIT_MQ_URL $RABBIT_MQ_URL
     - cf push rabbitmq-email
     - cf restage rabbitmq-email
