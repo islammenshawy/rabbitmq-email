@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "start": "RABBIT_MQ_URL='amqp://vxnqtxuw:Nc3mmICgdrtddEkN2ribW1S-i3Z3Rjx0@serious-coyote.rmq.cloudamqp.com/vxnqtxuw' nodemon index.js"
+    "start": "RABBIT_MQ_URL=$RABBIT_MQ_URL nodemon index.js"
   },
   "author": "islam elmenshawy",
   "license": "ISC",
