@@ -10,10 +10,12 @@
   "author": "islam elmenshawy",
   "license": "ISC",
   "dependencies": {
-    "@newrelic/native-metrics": "^2.1.1",
     "amqplib": "^0.5.2",
     "body-parser": "^1.18.2",
     "express": "^4.10.2",
-    "newrelic": "^1.40.0"
+  },
+  "engines": {
+    "node": "8.2.0",
+    "npm": "5.3.0"
   }
 }
