@@ -1,4 +1,3 @@
-var nr = require('newrelic');
 var amqp = require('amqplib/callback_api');
 var app = require('express')();
 var express = require('express');
