@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "start": "RABBIT_MQ_URL=$RABBIT_MQ_URL nodemon index.js"
+    "start": "RABBIT_MQ_URL=$RABBIT_MQ_URL SEND_GRID_API_KEY=$SEND_GRID_API_KEY nodemon index.js"
   },
   "author": "islam elmenshawy",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^6.2.1",
     "amqplib": "^0.5.2",
     "body-parser": "^1.18.2",
     "express": "^4.10.2"

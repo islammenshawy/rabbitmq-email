@@ -3,16 +3,39 @@ var app = require('express')();
 var express = require('express');
 var bodyParser = require('body-parser')
 var http = require('http').Server(app);
+const sgMail = require('@sendgrid/mail');
+
 var amqp_url= process.env.RABBIT_MQ_URL
 var default_queue_name = "ORDER_CONFIRM"
 
+sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
 app.use('/static', express.static('js'))
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }))
 
-function startPublisher(data, number_of_times = 1 , queue_name = default_queue_name){
+//Function to send email messages to email.
+function sendEmailMsg(data, queue_name = default_queue_name){
+  var emailData = JSON.parse(data);
+  var email = emailData.email,
+      name = emailData.name,
+      lastname = emailData.lastname,
+      phone = emailData.phone,
+      sms = emailData.sms,
+      body = emailData.body;
+  var subject = "Email from RabbitMQ Queue: " + queue_name;
+      const msg = {
+        to: email,
+        from: 'prog.islam@gmail.com',
+        subject: subject,
+        text: body,
+        html: '<strong>This is a test email sent from RabbitMQ.</strong>',
+      };
+  sgMail.send(msg);
+}
+
+function sendToPublisher(data, number_of_times = 1 , queue_name = default_queue_name){
   amqp.connect(amqp_url, function(err, conn) {
 	  conn.createChannel(function(err, ch) {
 	  	for (var i=0; i< number_of_times; i++){
@@ -28,7 +51,7 @@ function startPublisher(data, number_of_times = 1 , queue_name = default_queue_n
 });
 }
 
-function startListner(queue_name = default_queue_name){
+function invokeListener(queue_name = default_queue_name){
 	console.log("Starting Listner for queue: " + queue_name);
   amqp.connect(amqp_url, function(err, conn2) {
    conn2.createChannel(function(err, ch) {
@@ -36,7 +59,8 @@ function startListner(queue_name = default_queue_name){
     ch.assertQueue(q, {durable: false});
     console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q);
     ch.consume(q, function(msg) {
-      console.log(" [x] Received %s", msg.content.toString());
+      sendEmailMsg(msg.content.toString(), queue_name);
+      //console.log(" [x] Received %s", msg.content.toString());
     }, {noAck: true});
   });
     setTimeout(function() { conn2.close();}, 500);
@@ -47,8 +71,11 @@ function clearQueue(queue_name = default_queue_name){
   console.log("Clearing queue: " + queue_name);
   amqp.connect(amqp_url, function(err, conn2) {
 	  conn2.createChannel(function(err, ch) {
-	    var q = queue_name;
-	    ch.purgeQueue(q, function(err, ok) {
+	    ch.purgeQueue(queue_name, function(err, ok) {
+        if(err) {
+          console.log("Unknown Error Purging Queue: " + queue_name);
+          return;
+        }
 	      console.log("Successfuly Purged Queue: " + queue_name);
 	    });
 	  });
@@ -67,22 +94,23 @@ app.post('/sendemail', function(req, res){
    msgJson['lastname'] = req.body.surname,
    msgJson['email']  = req.body.email,
    msgJson['phone']  = req.body.phone,
+   msgJson['sms']  = req.body.sms,
    msgJson['body']  = req.body.message;
    var repeat_count = req.body.repeattimes ? parseInt(req.body.repeattimes) : 1;
    var queue_name = req.body.gridRadios ? req.body.gridRadios : queue_name;
    console.log("Sending message to Queue " + queue_name);
-   startPublisher(msgJson, repeat_count, queue_name);
+   sendToPublisher(msgJson, repeat_count, queue_name);
    res.sendStatus(200)
 });
 
 app.get('/publish', function(req, res){
-  startPublisher();
+  sendToPublisher();
   res.redirect('/');
 });
 
 app.get('/startlistener', function(req, res){
   var queue = req.query.queue ? req.query.queue : default_queue_name;
-  startListner(queue);
+  invokeListener(queue);
   res.redirect('/');
 });
 

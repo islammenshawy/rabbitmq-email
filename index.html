@@ -50,10 +50,17 @@
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="form_phone">Phone</label>
                                         <input id="form_phone" type="tel" name="phone" class="form-control" placeholder="Please enter your phone">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="form_sms" data-toggle="tooltip" data-placement="bottom" title="This will force message to error queue if the phone number is empty. No validation on frontend to test error queue.">Send SMS</label>
+                                        <input id="form_sms" name="sms" type="checkbox" class="form-check-input"/> 
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
@@ -70,8 +77,8 @@
                                     <div class="form-group">
                                         <label for="form_number_of_times">Repeat Email</label>
                                         <input id="form_number_of_times" type="number" name="repeattimes" class="form-control" placeholder="Please enter repeat times, default only once" data-toggle="tooltip" data-placement="bottom" title="Used mainly to grow the size of selected queue to test DataDog monitoring
-                                         YellowQueue warning > 20
-                                         RedQueue warning > 40">
+                                         YellowQueue warning >= 20
+                                         RedQueue warning >= 40">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                     <fieldset id="queue_name" class="form-group">
@@ -95,7 +102,8 @@
                                     <input type="submit" class="btn btn-success btn-send" value="Send To Queue" data-toggle="tooltip" data-placement="bottom" title="Send messages to the selected queue without processing them.">
                                 </div>
                                 <div class="col-md-3">
-                                    <input id="start_listener" type="button" class="btn btn-success btn-send" value="Start Listner" data-toggle="tooltip" data-placement="bottom" title="Start selected queue listener that should start processing/sending emails and will terminate automatically after">
+                                    <input id="start_listener" type="button" class="btn btn-success btn-send" value="Start Listner" data-toggle="tooltip" data-placement="bottom" title="Start selected queue listener that should start processing/sending emails and will terminate automatically after.
+                                    This will send actual emails so use clear queue first if you added many messages for load/monitoring testing.">
                                 </div>
                                 <div class="col-md-3">
                                     <input id="clear_queue" type="button" class="btn btn-success btn-send" value="Clear Queue" data-toggle="tooltip" data-placement="bottom" title="Clear selected queue of all messages. ">

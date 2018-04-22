@@ -52,10 +52,6 @@
             });
     }); 
 
-    // $('#stop_listener').on('click', function (e) {
-    //     console.warn("stopping listners")
-    // });
-
     // when the form is submitted
     $('#contact-form').on('submit', function (e) {
 

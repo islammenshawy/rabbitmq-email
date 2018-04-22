@@ -2,4 +2,4 @@
 applications:
 - name: rabbitmq-email
   memory: 512M
-  command: RABBIT_MQ_URL=$RABBIT_MQ_URL node index.js
+  command: RABBIT_MQ_URL=$RABBIT_MQ_URL SEND_GRID_API_KEY=$SEND_GRID_API_KEY node index.js
