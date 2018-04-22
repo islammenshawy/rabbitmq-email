@@ -1,0 +1,19 @@
+{
+  "name": "rabbitmq-email",
+  "version": "1.0.0",
+  "description": "email service connecting with rabbitmq",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "RABBIT_MQ_URL='amqp://vxnqtxuw:Nc3mmICgdrtddEkN2ribW1S-i3Z3Rjx0@serious-coyote.rmq.cloudamqp.com/vxnqtxuw' nodemon index.js"
+  },
+  "author": "islam elmenshawy",
+  "license": "ISC",
+  "dependencies": {
+    "@newrelic/native-metrics": "^2.1.1",
+    "amqplib": "^0.5.2",
+    "body-parser": "^1.18.2",
+    "express": "^4.10.2",
+    "newrelic": "^1.40.0"
+  }
+}

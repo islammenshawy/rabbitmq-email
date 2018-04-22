@@ -1,0 +1,5 @@
+---
+applications:
+- name: rabbitmq-email
+  memory: 512M
+  command: node index.js
