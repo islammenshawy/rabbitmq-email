@@ -12,7 +12,7 @@
   "dependencies": {
     "amqplib": "^0.5.2",
     "body-parser": "^1.18.2",
-    "express": "^4.10.2",
+    "express": "^4.10.2"
   },
   "engines": {
     "node": "8.2.0",
