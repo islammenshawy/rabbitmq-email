@@ -1,6 +1,4 @@
 # Table of contents
-
-* [Introduction](README.md)
 * [PoilerPlate Email GUI - RabbitMQ](poilerplate-email-gui-rabbitmq.md)
 * [Boilerplate Email GUI - RabbitMQ](boilerplate-email-gui-rabbitmq.md)
 * [Email Form Actions](email-form-actions.md)
