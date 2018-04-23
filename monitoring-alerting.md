@@ -1,8 +1,8 @@
 ---
-description: PoilerPlate RabbitMQ
+description: This page will cover the alerting monitoring implemented.
 ---
 
-# Initial page
+# Monitoring/Alerting
 
 ## Getting Super Powers
 
