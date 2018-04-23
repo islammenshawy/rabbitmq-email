@@ -1,7 +1,3 @@
----
-description: Article describing monitoring & alerting in the solution.
----
-
 # Monitoring / Alerting
 
 ## Integrated Monitoring

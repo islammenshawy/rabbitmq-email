@@ -1,10 +1,3 @@
----
-description: >-
-  This project is implemented as a POC to spike on RabbitMQ as a solution that
-  can support high volume system and provide analysis of it's capabilities of
-  scale,speed, monitoring/alerting integrations.
----
-
 # Boilerplate Email GUI - RabbitMQ
 
 ## Description
@@ -14,7 +7,7 @@ Project is utilizing public cloud hosting & integrations to test end to end Rabb
 ### Tech Stack
 
 * NodeJs & Express
-* Hosted RabbitMQ
+* * Hosted RabbitMQ
 * Pivotal Cloud Foundry
 * NewRelic
 * DataDog

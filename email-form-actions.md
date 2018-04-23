@@ -1,7 +1,3 @@
----
-description: This page will describe email form actions
----
-
 # Email Form Actions
 
 This page is intended to describe the email form UI and actions associated with it. Cloud hosted form below
