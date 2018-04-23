@@ -42,6 +42,7 @@ function isValidMessage(emailData, queue_name){
 
 //Function to send email messages to email.
 function sendEmailMsg(emailData, queue_name = default_queue_name){
+  var error_status = true;
   if(isValidMessage(emailData, queue_name)){
       var email = emailData.email,
       name = emailData.name,
@@ -58,7 +59,9 @@ function sendEmailMsg(emailData, queue_name = default_queue_name){
         html: '<strong>This is a test email sent from RabbitMQ.</strong>',
         };
       sgMail.send(msg);
+      return !error_status;
   }
+  return error_status;
 }
 
 function sendToPublisher(data, number_of_times = 1 , queue_name = default_queue_name){
@@ -77,19 +80,22 @@ function sendToPublisher(data, number_of_times = 1 , queue_name = default_queue_
 });
 }
 
-function invokeListener(queue_name = default_queue_name){
+function invokeListener(queue_name = default_queue_name, callback){
 	console.log("Starting Listner for queue: " + queue_name);
+  var error = {'status': false};
   amqp.connect(amqp_url, function(err, conn2) {
    conn2.createChannel(function(err, ch) {
     var q = queue_name;
     ch.assertQueue(q, {durable: false});
     console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q);
     ch.consume(q, function(msg) {
-      sendEmailMsg(JSON.parse(msg.content.toString()), queue_name);
+      var current_msg_errored = sendEmailMsg(JSON.parse(msg.content.toString()), queue_name);
+      error['status'] = error['status'] || current_msg_errored;
       console.log(" [x] Received %s", msg.content.toString());
-    }, {noAck: true});
+    }, {noAck: true},);
+    
   });
-    setTimeout(function() { conn2.close();}, 500);
+    setTimeout(function() { conn2.close(); callback(error['status']);}, 500);
 });
 }
 
@@ -136,8 +142,13 @@ app.get('/publish', function(req, res){
 
 app.get('/startlistener', function(req, res){
   var queue = req.query.queue ? req.query.queue : default_queue_name;
-  invokeListener(queue);
-  res.redirect('/');
+  invokeListener(queue, function(err){
+    if(err){
+      res.sendStatus(500);
+      return;
+    }
+    res.redirect('/');
+  });
 });
 
 app.get('/clearqueue', function(req, res){

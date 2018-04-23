@@ -76,7 +76,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="form_number_of_times">Repeat Email</label>
-                                        <input id="form_number_of_times" type="number" name="repeattimes" class="form-control" placeholder="Please enter repeat times, default only once" data-toggle="tooltip" data-placement="bottom" title="Used mainly to grow the size of selected queue to test DataDog monitoring
+                                        <input id="form_number_of_times" type="number" disabled="true" name="repeattimes" class="form-control" placeholder="Please enter repeat times, default only once" data-toggle="tooltip" data-placement="bottom" title="Used mainly to grow the size of selected queue to test DataDog monitoring
                                          YellowQueue warning >= 20
                                          RedQueue warning >= 40">
                                         <div class="help-block with-errors"></div>
@@ -98,6 +98,16 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-md-6">
+                                    <div id="alert_sucess" class="alert alert-success" role="alert" hidden="true">
+                                      <strong>Success! </strong> <span id="sucess_message">You successfully read this important alert message.</span>
+                                    </div>
+                                    <div id="alert-danger" class="alert alert-danger" role="alert" hidden="true">
+                                      <strong>Oops! </strong>Something wrong happened :(. Message pushed to error queue.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-3">
                                     <input type="submit" class="btn btn-success btn-send" value="Send To Queue" data-toggle="tooltip" data-placement="bottom" title="Send messages to the selected queue without processing them.">
                                 </div>
@@ -107,17 +117,6 @@
                                 </div>
                                 <div class="col-md-3">
                                     <input id="clear_queue" type="button" class="btn btn-success btn-send" value="Clear Queue" data-toggle="tooltip" data-placement="bottom" title="Clear selected queue of all messages. ">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div id="alert_sucess" class="alert alert-success" role="alert" hidden="true">
-                                      <strong>Success! </strong> <span id="sucess_message">You successfully read this important alert message.</span>
-                                    </div>
-                                    <div id="alert-danger" class="alert alert-danger" role="alert" hidden="true">
-                                      <strong>Oops!</strong>Something wrong happened.
-                                    </div>
                                 </div>
                             </div>
                             <div class="row">

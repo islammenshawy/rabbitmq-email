@@ -39,7 +39,7 @@
                     var messageAlert = 'Listner Started successfully';
                     alertSucessMessage(messageAlert)
                 },
-                failure: function(data){
+                error: function(data){
                     alertFailure();
                 }
             });
@@ -59,7 +59,7 @@
                     var messageAlert = 'Queue cleared successfully';
                     alertSucessMessage(messageAlert)
                 },
-                failure: function(data){
+                error: function(data){
                     alertFailure();
                 }
             });
@@ -82,7 +82,7 @@
                     var messageAlert = 'Message sent to queue successfully';
                     alertSucessMessage(messageAlert)
                 },
-                failure: function(data){
+                error: function(data){
                     alertFailure();
                 }
             });
